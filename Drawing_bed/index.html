@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器图床=>上传</title>
+    <script src="./jquery-3.4.1.min.js"></script>
+</head>
+<style>
+    body{
+        margin: 0;
+    }
+    .upfia_look img{
+        width: 150px;
+    }
+    .title{
+        position: fixed;
+    /* background: #000; */
+    width: 30%;
+    height: 280px;
+    top: 44vh;
+    right: 0;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    }
+    .dep{
+        width: 100%;
+    height: 50px;
+    background-color: #26c326;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    margin: 10px 0px;
+    overflow: hidden;
+    transition: all .25s linear;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    }
+    .teli{
+        overflow: hidden;
+    width: 450px;
+    text-align: center;
+    color: #FFF;
+    display: inline-block;
+    }
+    .did{
+        width: 250px;
+    border-style: dashed;
+    border-color: #a5a5a5;
+    height: 150px;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s linear;
+    cursor: pointer;
+    }
+    .did:hover{
+        border-color:#26c326 ;
+    }
+    .did:hover>p svg{
+        fill: #26c326;
+    }
+    .did p svg {
+    width: 50px;
+    fill: #a5a5a5;
+    transition: all .25s linear;
+}
+.up_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 370px;
+    justify-content: space-evenly;
+}
+input[type="button"]{
+    width: 170px;
+    height: 45px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: transparent;
+    color: green;
+    transition: all .25s linear;
+    cursor: pointer;
+}
+input[type="button"]:hover{
+    background-color: green;
+    color: #FFF;
+}
+.upfia_look{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    position: relative;
+    /* width: 100%; */
+    left: 0;
+    top: 30px;
+    padding: 30px 20px;
+    background: #f7f7f7;
+    align-items: center;
+}
+.imgs_look{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.ckbo{
+    margin: 0px 15px;
+}
+.data_type{
+    position: fixed;
+    right: 30px;
+    top: 30px;
+    border-radius: 5px;
+    width: 270px;
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    padding: 0px 15px;
+    box-shadow: 0px 0px 11px -2px #979797;
+    z-index: 100;
+    background: #FFF;
+    overflow: hidden;
+}
+.data_type p{
+    margin: 0;
+}
+.finum,.fisize{
+    color: #0099ff;
+}
+#res_tel{
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #ffe000;
+    box-shadow: 0px 0px 5px 1px #a1a1a1;
+    color: #FFF;
+    font-weight: 100;
+    transition: all .5s linear;
+}
+.green{
+    background-color: #26c326 !important;
+}
+.red{
+    background-color: red !important;
+}
+.blue{
+    background-color: #0099ff !important;
+}
+.zise{
+    background-color: rgb(226, 129, 250) !important;
+}
+.jinzhi{
+    border-color: #9acb9a !important;
+    color: #9acb9a !important;
+    background-color: #FFF !important;
+}
+#list_nex{
+    font-size: 25px;
+    text-decoration-line: none;
+    color: #FFF;
+    display: block;
+    line-height: 40px;
+    width: 40px;
+    text-align: center;
+    z-index: 1;
+    border-radius: 100%;
+    background-color: #0099ff;
+    box-shadow: 0px 0px 8px -2px black;
+    transition: all .25s linear;
+}
+.trur{
+    animation: apt .25s infinite linear;
+}
+.condet{
+    background-color: red !important;
+    /* animation: cw .25s linear infinite; */
+}
+#data_num{
+    color: #0099ff;
+    padding: 0px 5px;
+}
+@keyframes cw{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(50deg);}
+}
+@keyframes apt{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(365deg);
+    }
+}
+.pt2 {
+    width: 63px;
+    height: 63px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 0px 15px;
+    border-radius: 100%;
+    border: 1px solid #d9d9d9;
+    align-items: center;
+    position: relative;
+}
+.pt2::after{
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #9797976e;
+    position: absolute;
+    animation: act 5.5s linear infinite;
+}
+@keyframes act{
+    0%{transform: rotate(365deg);}
+    100%{transform: rotate(0deg);}
+}
+.peat{
+    position: fixed;
+    right: 30px;
+    height: 150px;
+    top: 210px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0px 0px 11px -2px #979797;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    z-index: 1;
+}
+.sold{
+    width: 1px;
+    height: 100px;
+    background-color: #979797;
+}
+.db_all_tel{
+    display: flex;
+    width: 356px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.dbp{
+    width: 200px;
+    display: flex;
+    height: 110px;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.peat p{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+}
+.link{
+    position: fixed;
+    right: 335px;
+    padding: 10px;
+    top: 163px;
+    z-index: 3;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 0px 10px -5px black;
+}
+.link a {
+    text-decoration: none;
+    color: #0099ff;
+    text-shadow: 0px 0px 1px;
+}
+</style>
+<body>
+    <div class="link">
+        <a href="./list.html">整理图片</a>
+    </div>
+    <div class="data_type">
+        <b>数据汇总</b>
+        <p>文件总数：<span class="finum">0</span></p>
+        <p>文件总大小：<span class="fisize">0</span>Kb</p>
+        <p id="res_tel">正在待命</p>
+    </div>
+    <div class="peat">
+        <b>数据库状态</b>
+        <div class="db_all_tel">
+            <div class="pt2">
+                <a href="javascript:;" id="list_nex" class="trur">∵</a>
+            </div>
+            <div class="sold"></div>
+            <div class="dbp">
+                <p>DB_Name:<span style="color: #0099ff;" id="data_base_name"></span></p>
+                <p>Table_Name:<span style="color: #0099ff;" id="data_table"></span></p>
+                <p>PHP Connection:<span id="data_zt"></span></p>
+                <p>DB_Record:<span id="data_num"></span></p>
+            </div>
+        </div>
+    </div>
+    <form method="post" class="up_form">
+        <h1>点击上传文件 不支持拖拽上传!</h1>
+        <input style="display: none;" type="file" name="upfile" id="upfile" accept="image/jpeg,image/png,image/webp" multiple="multiple">
+        <label for="upfile" class="did" title="点击选择1个或多个文件">
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                            <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                        </svg>
+            </p>
+        </label>
+        <input type="button" disabled="disabled" value="开始上传" id="upfi" class="jinzhi">
+    </form>
+    <div class="upfia_look">
+        <h1 style="margin: 0;font-weight: 100;">上传预览</h1>
+        <div class="imgs_look"></div>
+    </div>
+    <div class="title">
+        
+    </div>
+    <script>
+        const select_database = function(){
+            $.ajax({
+                url:"./up_img.php",
+                type:'get',
+                dataType:'json',
+                success:function(rt){
+                    $("#data_base_name").text(rt.database);
+                    $("#data_zt").text(rt.cont);
+                    $("#data_num").text(rt.data_num);
+                    $("#data_table").text(rt.table_name);
+                    if(rt.cutnt == 200){
+                        $("#data_zt").css("color","#26c326");
+                        $("#list_nex").removeClass();
+                        $("#list_nex").addClass("trur");
+                    }else{
+                        $("#data_zt").css("color","red");
+                        $("#list_nex").removeClass();
+                        $("#list_nex").addClass("condet");
+                    }
+                }
+            })
+        }
+        setInterval(select_database,1500);
+        select_database();
+    </script>
+    <script>
+        $("#upfi").click(function(){
+            var fil = new FormData();
+            var files = $("#upfile")[0].files;
+            for(var i = 0; i< files.length ; i++){
+                fil.append('upfile[]',files[i]);
+            }
+            $("#res_tel").text("正在上传中");
+            $("#res_tel").removeClass();
+            $("#res_tel").addClass("blue");
+            $("#upfi").attr("disabled",true);
+            $("#upfi").addClass("jinzhi");
+            $.ajax({
+                url:'./up_img.php',
+                type:'POST',
+                dataType:'json',
+                processData: false,
+                contentType: false,
+                data: fil,
+                success:function(res){
+                    const timest = setInterval(retm,1000);
+                    var retm = function(){
+                        if(res.num == 200){
+                            clearInterval(timest);
+                            $("#res_tel").text(res.tal);
+                            $("#res_tel").removeClass();
+                            $("#res_tel").addClass("green");
+                        }else if(res.num == 400){
+                            clearInterval(timest);
+                            $("#res_tel").text(res.tal);
+                            $("#res_tel").removeClass();
+                            $("#res_tel").addClass("red");
+                            $("#upfi").attr("disabled",false);
+                            $("#upfi").removeClass("jinzhi");
+                        }
+                    }
+                    retm();
+                    var inti = -1;
+                    var ftan = function(){
+                        if(inti<res.file.length - 1){
+                            inti++;
+                            $(".title").append(`
+                            <div class="dep">
+                                <span>文件</span>
+                                <span class="teli">${res.file[inti]}</span>
+                                <span>上传成功!</span>
+                            </div>
+                            `);
+                            if(inti>=res.file.length){
+                                clearTimeout(timo);
+                            }
+                                setTimeout(function(){$(".dep").remove()},13000);
+                                setTimeout(function(){$(".dep").fadeOut(300)},1000);
+                        }
+                        const timo = setTimeout(ftan,1050);
+                    }
+                    ftan();
+                    console.log(res.num);
+                },
+                error:function(ret){
+                    console.log("详细错误信息:"+ret.statusText);
+                    $("#upfi").attr("disabled",false);
+                    $("#upfi").removeClass("jinzhi");
+                    $("#res_tel").removeClass();
+                    $("#res_tel").addClass("red");
+                    $("#res_tel").text("出现了意料之外的错误 错误码"+ret.status);
+                }
+            })
+        });
+        $("#upfile").change(function () {
+            var allimg = $("#upfile")[0].files;
+            var array_img = [];
+            var sun = 0;
+            $("#upfi").attr("disabled",false);
+            $("#upfi").removeClass("jinzhi");
+            $(".ckbo").remove();
+            $("#res_tel").removeClass();
+            $("#res_tel").addClass("zise");
+            $("#res_tel").text("上传已就绪");
+            for(var pa = 0; pa < allimg.length; pa++){
+                console.log("file_name: "+$("#upfile")[0].files[pa].name+" / file_size: "+$("#upfile")[0].files[pa].size);
+                    array_img.push($("#upfile")[0].files[pa].size);
+                    sun += array_img[pa];
+                    $(".imgs_look").append(`
+                    <div class="ckbo">
+                        <img id="lookimg${pa}" src="" alt="" />
+                        `);
+                        $("#lookimg"+pa).attr('src',getObjectURL(this.files[pa]));
+                        $(".finum").text(array_img.length);
+                        $(".fisize").text(sun);
+                    }
+                    console.log("文件总大小 "+sun+" Kb");
+                    $("#res_tel").removeClass();
+                    $("#res_tel").addClass("zise");
+        });
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+    </script>
+</body>
+</html>                                                                                                                                                                                                                                                  
