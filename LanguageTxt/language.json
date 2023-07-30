@@ -1,0 +1,28 @@
+{
+    "str":{
+        "ln-zh":{
+            "top":"管理员后台",
+            "usern":"ID/用户名",
+            "pwd":"密码",
+            "inp":"登录"
+        },
+        "ln-en":{
+            "top":"Administrator",
+            "usern":"ID/E-mail",
+            "pwd":"Password",
+            "inp":"Sign in"
+        },
+        "ln-jp":{
+            "top":"スーパー管理者",
+            "usern":"ID/メールアドレス",
+            "pwd":"パスワード",
+            "inp":"登録します"
+        }
+    },
+    "config":{
+        "top":"text",
+        "usern":"plac",
+        "pwd":"plac",
+        "inp":"val"
+    }
+}
